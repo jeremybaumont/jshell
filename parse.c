@@ -79,16 +79,20 @@ void parse (char buf[], int *cargc, char *cargv[], char *cenvp[],
 
 	while ((token = __strsep(&running, delimiters))) {
 		if((subtoken = strpbrk(token, indelimiter))){ 
-			strcpy(in, subtoken+1);
-			continue;
+		    	if (*(subtoken + 1)) { 
+				strcpy(in, subtoken+1);
+				continue;
+		    	}
 		}
 
 		if((subtoken = strpbrk(token, outdelimiter))) { 	
 			if (*(subtoken + 1) == '>') {
 				subtoken++;
 			}
-			strcpy(out, subtoken+1);
-			continue;
+		    	if (*(subtoken + 1)) { 
+				strcpy(out, subtoken+1);
+				continue;
+			}
 		}
 		if (*token == '<'){
 			strcpy(in,__strsep(&running, delimiters));
